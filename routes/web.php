@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\roleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +18,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get("/clientdashboard", function(){
+    return view("clientdashboard");
+}) -> name("client");
+Route::get("/agentdashboard", function(){
+    return view("agentdashboard");
+}) -> name("agent");
+Route::get("/admindashboard", function(){
+    return view("admindashboard");
+}) -> name("admin");
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
