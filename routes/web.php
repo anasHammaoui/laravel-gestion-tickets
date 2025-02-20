@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Category;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\roleController;
 use Illuminate\Support\Facades\Route;
@@ -35,10 +37,11 @@ Route::middleware('auth')->group(function () {
 });
 // middleware for admin
 Route::middleware('auth','role:admin')->group(function () {
-    Route::get("/admindashboard", function(){
-        return view("admin/admindashboard");
-    }) -> name("admin");
+    Route::get("/admindashboard", [AdminController::class, "dashboard"]) -> name("admindashboard");
+    Route::get("/categories/add", [Category::class, "addCategory"]) -> name("addCategory");
+    Route::get("/admincategory", [Category::class, "showCategories"]) -> name("admin");
 });
+// middleware for client
 Route::middleware('auth','role:client')->group(function () {
     Route::get("/clientdashboard", function(){
         return view("clientdashboard");
