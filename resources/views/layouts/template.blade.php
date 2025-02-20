@@ -10,12 +10,13 @@
 </head>
 <body class="bg-gray-100">
     <div class="flex h-screen overflow-hidden">
+        @if (Auth::User() -> role -> name === "admin")
         <!-- Sidebar - hidden on mobile, visible on md screens and up -->
         <aside class="w-0 md:w-64 flex-shrink-0">
             <div class="flex flex-col w-64 bg-gray-800 h-full">
                 <!-- Logo -->
                 <div class="flex items-center justify-center h-16 bg-gray-900">
-                    <span class="text-white font-semibold text-lg">Admin Panel</span>
+                    <span class="text-white font-semibold text-lg">@yield("role")</span>
                 </div>
                 <!-- Sidebar Navigation -->
                 <nav class="mt-5 flex-1 px-2 bg-gray-800 space-y-1">
@@ -37,8 +38,10 @@
                     </a>
                    
                 </nav>
+               
             </div>
         </aside>
+        @endif
 
         <!-- Main Content Area -->
         <div class="flex flex-col flex-1 overflow-hidden">

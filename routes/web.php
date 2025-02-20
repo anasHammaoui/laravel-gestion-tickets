@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Category;
+use App\Http\Controllers\Client;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\roleController;
 use Illuminate\Support\Facades\Route;
@@ -43,9 +44,8 @@ Route::middleware('auth','role:admin')->group(function () {
 });
 // middleware for client
 Route::middleware('auth','role:client')->group(function () {
-    Route::get("/clientdashboard", function(){
-        return view("clientdashboard");
-    }) -> name("client");
+    Route::get("/clientdashboard",[Client::class,"index" ]) -> name("client");
+    Route::get("/tickets/add",[Client::class,"addTicket" ]) -> name("addTicket");
 });
 
 

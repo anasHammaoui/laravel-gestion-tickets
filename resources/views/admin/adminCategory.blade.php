@@ -1,4 +1,5 @@
 @extends("layouts.template")
+@section("role","Admin Page")
 @section("content")
 <main class="flex-1 overflow-y-auto p-6 bg-gray-100">
                 <div class="flex items-center justify-between mb-6">
