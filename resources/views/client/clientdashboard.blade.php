@@ -11,15 +11,21 @@
         <!-- Add ticket Form - Left side, narrower width -->
         <div class="bg-white rounded-lg shadow-md p-6 w-1/3">
             <h2 class="text-lg font-medium text-gray-800 mb-4">Add New Ticket</h2>
-            <form action="tickets/add" method="GET">
+            <form action="{{route('addTicket')}}" method="POST">
                 @csrf
                 <div class="mb-4">
                     <label for="ticketName" class="block text-sm font-medium text-gray-700 mb-1">Ticket Name</label>
                     <input type="text" id="ticketName" name="ticketName" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter ticket name">
+                    @error("ticketName")
+                    <p class="text-rose-700">{{$message}}</p>
+                    @enderror
                 </div>
                 <div class="mb-4">
                     <label for="ticketDescription" class="block text-sm font-medium text-gray-700 mb-1">Ticket Description</label>
                     <input type="text" id="ticketDescription" name="ticketDescription" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter ticket description">
+                    @error("ticketDescription")
+                    <p class="text-rose-700">{{$message}}</p>
+                    @enderror
                 </div>
                 <div class="mb-4">
                     <label for="ticketCategory" class="block text-sm font-medium text-gray-700 mb-1">Ticket Category</label>
@@ -29,6 +35,9 @@
                                 <option value="{{$category->id}}">{{$category->category_name}}</option>
                             @endforeach
                         </select>
+                        @error("ticketCat")
+                    <p class="text-rose-700">{{$message}}</p>
+                    @enderror
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                             <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                 <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
@@ -44,7 +53,6 @@
                 </div>
             </form>
         </div>
-        
         <!-- Tickets Table - Right side, takes more space -->
         <div class="bg-white rounded-lg shadow-md p-6 w-2/3">
             <div class="flex items-center justify-between mb-4">

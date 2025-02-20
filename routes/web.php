@@ -39,13 +39,13 @@ Route::middleware('auth')->group(function () {
 // middleware for admin
 Route::middleware('auth','role:admin')->group(function () {
     Route::get("/admindashboard", [AdminController::class, "dashboard"]) -> name("admindashboard");
-    Route::get("/categories/add", [Category::class, "addCategory"]) -> name("addCategory");
+    Route::post("/categories/add", [Category::class, "addCategory"]) -> name("addCategory");
     Route::get("/admincategory", [Category::class, "showCategories"]) -> name("admin");
 });
 // middleware for client
 Route::middleware('auth','role:client')->group(function () {
     Route::get("/clientdashboard",[Client::class,"index" ]) -> name("client");
-    Route::get("/tickets/add",[Client::class,"addTicket" ]) -> name("addTicket");
+    Route::post("/tickets/add",[Client::class,"addTicket" ]) -> name("addTicket");
 });
 
 

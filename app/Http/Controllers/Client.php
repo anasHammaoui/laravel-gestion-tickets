@@ -13,14 +13,18 @@ class Client extends Controller
         $tickets = Ticket::all();
         return view("/client/clientdashboard",["categories"=> $categories, "tickets" => $tickets]);
     }
-    public function addTicket(){
-        if (isset($_GET["addTicket"])){
+    public function addTicket(Request $request){
+        $validate = $request -> validate([
+            "ticketName" => "required | unique:tickets,ticket_name",
+            "ticketDescription" => "required | unique:tickets,ticket_name",
+            "ticketCat" => "required"
+        ]);
+
             Ticket::create([
-                "ticket_name" => $_GET["ticketName"],
-                "ticket_description" => $_GET["ticketDescription"],
-                "category_id" => $_GET["ticketCat"],
+                "ticket_name" =>$validate["ticketName"],
+                "ticket_description" =>$validate["ticketDescription"],
+                "category_id" =>$validate["ticketCat"],
             ]);
-            return redirect("/clientdashboard");
-        }
+            return redirect()-> route("addTicket");
     }
 }
