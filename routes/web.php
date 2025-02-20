@@ -18,9 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get("/clientdashboard", function(){
-    return view("clientdashboard");
-}) -> name("client");
 Route::get("/agentdashboard", function(){
     return view("agentdashboard");
 }) -> name("agent");
@@ -36,5 +33,17 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+// middleware for admin
+Route::middleware('auth','role:admin')->group(function () {
+    Route::get("/admindashboard", function(){
+        return view("admin/admindashboard");
+    }) -> name("admin");
+});
+Route::middleware('auth','role:client')->group(function () {
+    Route::get("/clientdashboard", function(){
+        return view("clientdashboard");
+    }) -> name("client");
+});
+
 
 require __DIR__.'/auth.php';
