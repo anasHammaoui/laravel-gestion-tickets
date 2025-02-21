@@ -6,6 +6,7 @@ use App\Http\Controllers\Category;
 use App\Http\Controllers\Client;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\roleController;
+use App\Http\Controllers\Ticket;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,11 +48,14 @@ Route::middleware('auth','role:admin')->group(function () {
     Route::get("/adminagents", [AdminController::class, "showUsers"]) -> name("adminagents");
     Route::put("/users/update/{id}", [AdminController::class, "updateRole"]) -> name("updateRole");
     Route::delete("/users/delete/{id}", [AdminController::class, "deleteUser"]) -> name("deleteUser");
+    Route::get("/admintickets", [AdminController::class, "showTickets"]) -> name("adminTickets");
+    Route::post("/admintickets/assignTo", [AdminController::class, "assignTo"]) -> name("assignedto");
 
 });
 // middleware for agent 
 Route::middleware('auth','role:agent') -> group(function (){
-
+    Route::get("/agentdashboard", [Agent::class, "dashboard"]) -> name("agentdashboard");
+    Route::post("/agentdashboard/status/{id}", [Agent::class, "changeStatus"]) -> name("changestatus");
 });
 // middleware for client
 Route::middleware('auth','role:client')->group(function () {

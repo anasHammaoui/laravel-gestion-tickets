@@ -10,6 +10,6 @@ class Ticket extends Model
     use HasFactory;
     protected $fillable = ["ticket_name","ticket_description","category_id"];
     public function category(){
-        return $this -> hasOne(Category::class);
+        return $this -> belongsTo(Category::class);
     }
 }

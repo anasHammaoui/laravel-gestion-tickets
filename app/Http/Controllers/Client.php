@@ -25,6 +25,6 @@ class Client extends Controller
                 "ticket_description" =>$validate["ticketDescription"],
                 "category_id" =>$validate["ticketCat"],
             ]);
-            return redirect()-> route("addTicket");
+            return redirect()-> route("client");
     }
 }

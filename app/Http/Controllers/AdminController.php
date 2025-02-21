@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -27,4 +28,19 @@ class AdminController extends Controller
         $delete -> delete();
         return redirect()->route('adminagents')->with('success', 'User deleted successfully');
    }
+   public function showTickets (){
+    $tickets = Ticket::all();
+    $users = User::all();
+    return view("admin.adminTickets",["tickets"=>$tickets,"users"=>$users]);
+}
+    public function assignTo(Request $request){
+        $validate = $request -> validate([
+            "assignTicket" => "required | numeric",
+            "ticketId" => "required | numeric"
+        ]);
+        Ticket::where("id", $validate["ticketId"]) -> update([
+            "assigned_to" => $validate["assignTicket"]
+        ]);
+        return redirect() -> route("adminTickets");
+    }
 }
