@@ -2,6 +2,13 @@
 @section("role","Admin Page")
 @section("content")
 <main class="flex-1 overflow-y-auto p-6 bg-gray-100">
+    @if (session("success"))
+    <div class=" text-center text-green-500 capitalize">
+       <script>
+        alert("{{session('success')}}");
+       </script>
+    </div>
+    @endif
     <div class="flex items-center justify-between mb-6">
         <h1 class="text-2xl font-semibold text-gray-800">Manage Categories</h1>
     </div>
@@ -29,7 +36,8 @@
             </form>
         </div>
         
-        <!-- Categories Table - Right side, takes more space -->
+      @if(count($categories)> 0)
+            <!-- Categories Table - Right side, takes more space -->
         <div class="bg-white rounded-lg shadow-md p-6 w-2/3">
             <div class="flex items-center justify-between mb-4">
                 <h2 class="text-lg font-medium text-gray-800">All Categories</h2>
@@ -64,12 +72,16 @@
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <button class="text-indigo-600 hover:text-indigo-900 mr-3" title="Edit">
+                                <button class="text-indigo-600 hover:text-indigo-900 mr-3 editBtn" title="Edit" data-name="{{$category->category_name}}" data-id="{{$category -> id}}" data-toggle="modal" data-target="#exampleModal">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button class="text-red-600 hover:text-red-900" title="Delete">
+                                <form action="" method="post">
+                                    @csrf
+                                    @method("delete")
+                                <button type="submit" class="text-red-600 hover:text-red-900" title="Delete">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
@@ -77,6 +89,50 @@
                 </table>
             </div>
         </div>
+        @endif
     </div>
+    <!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" >
+  Launch demo modal
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form  id="updateCategory" action="" method="post">
+            @csrf
+            @method("PUT")
+            <label for="categoryUpdate" class="block text-sm font-medium text-gray-700 mb-1">Category Name</label>
+            <input type="text" id="categoryUpdate"  name="categoryUpdate" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Update Category</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+    let button = document.querySelectorAll(".editBtn") ;
+    let form = document.getElementById("updateCategory");
+    let input = document.getElementById("categoryUpdate");
+    button.forEach(btn =>{
+     btn.addEventListener("click",()=>{
+        let id = btn.getAttribute("data-id");
+        let name = btn.getAttribute("data-name");
+        form.action = `/categories/delete/${id}`;
+        input.value = name;
+     })
+    })
+</script>
 </main>
 @endsection
