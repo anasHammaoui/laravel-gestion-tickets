@@ -71,11 +71,11 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex">
                                 <button class="text-indigo-600 hover:text-indigo-900 mr-3 editBtn" title="Edit" data-name="{{$category->category_name}}" data-id="{{$category -> id}}" data-toggle="modal" data-target="#exampleModal">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <form action="" method="post">
+                                <form action="{{route('deleteCategory',$category->id)}}" method="post">
                                     @csrf
                                     @method("delete")
                                 <button type="submit" class="text-red-600 hover:text-red-900" title="Delete">

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Agent;
 use App\Http\Controllers\Category;
 use App\Http\Controllers\Client;
 use App\Http\Controllers\ProfileController;
@@ -41,7 +42,16 @@ Route::middleware('auth','role:admin')->group(function () {
     Route::get("/admindashboard", [AdminController::class, "dashboard"]) -> name("admindashboard");
     Route::get("/admincategory", [Category::class, "showCategories"]) -> name("admin");
     Route::post("/categories/add", [Category::class, "addCategory"]) -> name("addCategory");
-    Route::put("/categories/delete/{id}", [Category::class, "updateCategory"]) -> name("updateCategory");
+    Route::put("/categories/update/{id}", [Category::class, "updateCategory"]) -> name("updateCategory");
+    Route::delete("/categories/delete/{id}", [Category::class, "deleteCategory"]) -> name("deleteCategory");
+    Route::get("/adminagents", [AdminController::class, "showUsers"]) -> name("adminagents");
+    Route::put("/users/update/{id}", [AdminController::class, "updateRole"]) -> name("updateRole");
+    Route::delete("/users/delete/{id}", [AdminController::class, "deleteUser"]) -> name("deleteUser");
+
+});
+// middleware for agent 
+Route::middleware('auth','role:agent') -> group(function (){
+
 });
 // middleware for client
 Route::middleware('auth','role:client')->group(function () {

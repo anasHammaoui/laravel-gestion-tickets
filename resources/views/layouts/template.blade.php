@@ -24,7 +24,7 @@
                         <i class="fas fa-tachometer-alt mr-3 text-gray-300"></i>
                         Dashboard
                     </a>
-                    <a href="#" class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white">
+                    <a href="adminagents" class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white">
                         <i class="fas fa-users mr-3 text-gray-400"></i>
                         Manage Users
                     </a>
