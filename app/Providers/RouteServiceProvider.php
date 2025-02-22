@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +18,9 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/dashboard';
+    static function home(){
+        return Auth::user() -> role -> name == "admin" ? '/admindashboard' : (Auth::user() -> role -> name == "agent" ? "/agentdashboard" : "/clientdashboard");
+    }
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.

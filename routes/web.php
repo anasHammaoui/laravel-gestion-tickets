@@ -61,6 +61,7 @@ Route::middleware('auth','role:agent') -> group(function (){
 Route::middleware('auth','role:client')->group(function () {
     Route::get("/clientdashboard",[Client::class,"index" ]) -> name("client");
     Route::post("/tickets/add",[Client::class,"addTicket" ]) -> name("addTicket");
+    Route::post("/tickets/close/{id}",[Client::class,"closeticket" ]) -> name("closeticket");
 });
 
 

@@ -1,11 +1,13 @@
 @extends("layouts.template")
 @section("role","Client Page")
 @section("content")
-<main class="flex-1 overflow-y-auto p-6 bg-gray-100">
+<main class="flex-1 overflow-y-auto  md:p-19 py-6 bg-gray-100">
     <div class="flex items-center justify-between mb-6">
         <h1 class="text-2xl font-semibold text-gray-800">Manage Tickets</h1>
     </div>
-
+    @if(session('success'))
+        <div class="text-green-500 text-center p-2">{{session('success')}}</div>
+    @endif
     <!-- Single row layout that works on all screen sizes -->
     <div class="flex gap-6">
         <!-- Add ticket Form - Left side, narrower width -->
@@ -38,11 +40,7 @@
                         @error("ticketCat")
                     <p class="text-rose-700">{{$message}}</p>
                     @enderror
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                            </svg>
-                        </div>
+                       
                     </div>
                 </div>
                 
@@ -87,14 +85,21 @@
                                 <div class="text-sm font-medium text-gray-900">{{ $ticket->ticket_name }}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{$ticket -> status == 'resolved' ? 'bg-green-500 text-white' : ($ticket -> status == 'pending' ? 'bg-orange-500 text-white' : 'bg-rose-500 text-white') }}">
                                     {{ $ticket->status }}
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <button class="text-green-600 hover:text-green-900" title="Complete">
+                              @if ($ticket -> status !== "closed")
+                              <form action="{{route('closeticket', $ticket -> id)}}" method="POST">
+                                @csrf
+                              <button type="submit" class="text-green-600 hover:text-green-900" title="Complete">
                                     <i class="fa-solid fa-check"></i>
                                 </button>
+                              </form>
+                              @else
+                              <div>no action required</div>
+                              @endif
                             </td>
                         </tr>
                         @endforeach

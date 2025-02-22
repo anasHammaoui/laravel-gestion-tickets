@@ -33,10 +33,10 @@ class AuthenticatedSessionController extends Controller
             return redirect() -> route("admin");
         } elseif ($auth === "agent") {
             return redirect() -> route("agent");
-        } else {
+        } elseif ($auth === "client") {
             return redirect() -> route("client");
         }
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect()->intended(RouteServiceProvider::home());
     }
 
     /**

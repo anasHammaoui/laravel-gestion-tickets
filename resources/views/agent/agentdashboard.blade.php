@@ -1,7 +1,7 @@
 @extends("layouts.template")
 @section("role","Admin Page")
 @section("content")
-<main class="flex-1 p-6 flex flex-col">
+<main class="flex-1  md:px-16 py-6  flex flex-col">
         <!-- Page Header -->
         <div class="mb-6">
             <h1 class="text-2xl font-bold text-gray-800">Tickets Management</h1>
@@ -57,7 +57,7 @@
                                 <div class="text-sm text-gray-500">{{ $ticket -> category -> category_name}}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                            <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full  {{$ticket -> status == 'resolved' ? 'bg-green-500 text-white' : ($ticket -> status == 'pending' ? 'bg-orange-500 text-white' : 'bg-rose-500 text-white') }}">
                                 <div class="flex space-x-3">
                                 {{ $ticket -> status }}
                                 </div>
