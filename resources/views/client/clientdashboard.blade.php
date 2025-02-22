@@ -90,7 +90,7 @@
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                              @if ($ticket -> status !== "closed")
+                              @if ($ticket -> status !== "resolved")
                               <form action="{{route('closeticket', $ticket -> id)}}" method="POST">
                                 @csrf
                               <button type="submit" class="text-green-600 hover:text-green-900" title="Complete">
