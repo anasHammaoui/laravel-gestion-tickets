@@ -9,7 +9,12 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     public function dashboard(){
-        return view("admin.admindashboard");
+        $totalTickets = Ticket::count();
+        $resolved = Ticket::where("status","resolved")-> count();
+        $users = User::with(["role" => function ($query){
+            $query -> where("name","client");
+        }]) -> count();
+        return view("admin.admindashboard",["tickets" => $totalTickets, "users" => $users, "resolved"=>$resolved]);
     }
     public function showUsers(){
         $users = User::all();
