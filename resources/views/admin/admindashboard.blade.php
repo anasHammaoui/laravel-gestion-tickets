@@ -8,12 +8,12 @@
           <div class="bg-white rounded-lg shadow-lg p-6">
             <div class="flex items-center">
                 <div class="p-3 rounded-full bg-purple-500 bg-opacity-10">
-                    <i class="fas fa-users text-2xl text-purple-500"></i>
+                    <i class="fa-solid fa-spinner text-2xl text-purple-500"></i>
                 </div>
                 <div class="ml-4">
-                    <h3 class="text-gray-500 text-sm uppercase">Total Users</h3>
+                    <h3 class="text-gray-500 text-sm uppercase">Pending Tickets</h3>
                     <div class="flex items-center">
-                        <span class="text-2xl font-semibold text-gray-800">{{$users}}</span>
+                        <span class="text-2xl font-semibold text-gray-800">{{$pending}}</span>
                     </div>
                 </div>
             </div>

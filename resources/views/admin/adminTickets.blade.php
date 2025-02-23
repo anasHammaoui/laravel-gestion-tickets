@@ -18,7 +18,7 @@
         <!-- Table Container -->
         <div class="flex-1 bg-white rounded-lg shadow flex flex-col">
             <!-- Table wrapper with scrolling -->
-            <div class="table-container flex-1 max-h-screen  overflow-y-auto">
+            <div class="table-container flex-1 max-h-screen  overflow-y-auto" style="max-height: 500px;">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50 sticky top-0 z-10">
                         <tr>
@@ -56,8 +56,8 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-500">{{ $ticket -> ticket_description }}</div>
+                            <td class="px-6 py-4 whitespace-nowrap ">
+                            <div class="text-sm text-gray-500 ">{{ Str::limit($ticket -> ticket_description, 20) }}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                
@@ -73,11 +73,12 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                
-                               <div class="text-sm text-gray-500">{{ $ticket -> created_at}}</div>
+                               <div class="text-sm text-gray-500">{{$ticket->created_at}}</div>
                            </td>
                            <td class="px-6 py-4 whitespace-nowrap">
                                
-                          <form action="{{route('assignedto')}}" method="POST">
+                         @if ($ticket -> status !== "resolved")
+                         <form action="{{route('assignedto')}}" method="POST">
                             @csrf
         
                             <input type="text" name="ticketId" class="hidden" value="{{$ticket -> id}}">
@@ -96,6 +97,9 @@
         @endforeach
     </select>
                           </form>
+                          @else
+                          <div class="bold text-green-400 center">Ticket has been resolved</div>
+                         @endif
                            </td>
                         </tr>
                         @endforeach

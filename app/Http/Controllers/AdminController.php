@@ -11,10 +11,8 @@ class AdminController extends Controller
     public function dashboard(){
         $totalTickets = Ticket::count();
         $resolved = Ticket::where("status","resolved")-> count();
-        $users = User::with(["role" => function ($query){
-            $query -> where("name","client");
-        }]) -> count();
-        return view("admin.admindashboard",["tickets" => $totalTickets, "users" => $users, "resolved"=>$resolved]);
+        $pending = Ticket::where("status","pending")-> count();
+        return view("admin.admindashboard",["tickets" => $totalTickets, "pending" => $pending, "resolved"=>$resolved]);
     }
     public function showUsers(){
         $users = User::all();

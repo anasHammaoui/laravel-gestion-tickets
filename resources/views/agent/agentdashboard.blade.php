@@ -70,7 +70,8 @@
                            </td>
                            <td class="px-6 py-4 whitespace-nowrap">
                                
-                           <form action="{{route('changestatus', $ticket -> id)}}" method="POST">
+                          @if ($ticket -> status !== "resolved")
+                          <form action="{{route('changestatus', $ticket -> id)}}" method="POST">
                             @csrf
                            <select name="changeStatus" id="changeStatus" onchange="this.form.submit()"
                             class="block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-white text-gray-700">
@@ -79,6 +80,9 @@
                             <option value="closed" {{ $ticket->status == "closed" ? 'selected' : '' }}>Closed</option>
                         </select>
                            </form>
+                           @else
+                          <div class="bold text-green-400 center">Ticket has been resolved</div>
+                          @endif
                            </td>
                         </tr>
                         @endforeach
