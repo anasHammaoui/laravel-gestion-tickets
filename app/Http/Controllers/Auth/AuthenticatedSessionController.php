@@ -30,13 +30,13 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
         $auth = Auth::user() -> role -> name;
         if ($auth === "admin"){
-            return redirect() -> route("admin");
+            return redirect() -> route("admindashboard");
         } elseif ($auth === "agent") {
-            return redirect() -> route("agent");
-        } else {
+            return redirect() -> route("agentdashboard");
+        } elseif ($auth === "client") {
             return redirect() -> route("client");
         }
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect()->intended(RouteServiceProvider::home());
     }
 
     /**
